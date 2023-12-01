@@ -27,7 +27,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     print('Pre-processing data...')
-    s = time.tipme()
+    s = time.time()
     edge_list = load_edgelist()
     data = TimeStampedLinkList.from_edgelist(edge_list)
     e = time.time()
