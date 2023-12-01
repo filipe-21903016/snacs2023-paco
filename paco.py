@@ -65,6 +65,16 @@ class TimeStampedLinkList:
         return TimeStampedLinkList(timestamped_links)
 
 
+def path_length(window, causal_path: CausalPath):
+    try:
+        graph = nx.DiGraph([(link.source, link.target) for link in window])
+        shortest_path = nx.shortest_path(
+            graph, source=causal_path.s, target=causal_path.t)
+        return len(shortest_path)
+    except Exception as e:
+        return float('inf') 
+
+
 def paco(data: TimeStampedLinkList, max_time: int, max_steps: int):
     """
     Function counts all instances of causal paths of lengths k <= K for a given maximum path length K and a maximum time difference (delta) between subsequent links on causal paths.
