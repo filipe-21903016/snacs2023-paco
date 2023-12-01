@@ -72,7 +72,7 @@ def path_length(window, causal_path: CausalPath):
             graph, source=causal_path.s, target=causal_path.t)
         return len(shortest_path)
     except Exception as e:
-        return float('inf') 
+        return float('inf')
 
 
 def paco(data: TimeStampedLinkList, max_time: int, max_steps: int):
@@ -100,7 +100,7 @@ def paco(data: TimeStampedLinkList, max_time: int, max_steps: int):
             else:
                 if link1.target == link.source and link.timestamp > link1.timestamp:
                     for p in link1.c.keys():
-                        if data.path_length(p) < max_steps:
+                        if path_length(window, p) < max_steps:
                             p_d = p.extend(link.target)
                             if p_d not in c_i.keys():
                                 c_i[p_d] = link1.c[p]
