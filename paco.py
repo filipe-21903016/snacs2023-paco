@@ -100,7 +100,7 @@ def paco(data: TimeStampedLinkList, max_time: int, max_steps: int):
             else:
                 if link1.target == link.source and link.timestamp > link1.timestamp:
                     for p in link1.c.keys():
-                        if path_length(window, p) < max_steps:
+                        if path_length(window, p) <= max_steps:
                             p_d = p.extend(link.target)
                             if p_d not in c_i.keys():
                                 c_i[p_d] = link1.c[p]
