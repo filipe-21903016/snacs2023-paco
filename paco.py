@@ -1,21 +1,20 @@
 from typing import List, Dict
-import networkx as nx
 
 
 class CausalPath:
-    def __init__(self, s: str, t: str) -> None: self.s, self.t = s, t
+    def __init__(self, nodes: List[str]) -> None: self.nodes = nodes
 
     def extend(self, node: str):
-        return CausalPath(self.s, node)
+        return CausalPath([node] + self.nodes)
 
     def __str__(self) -> str:
         return f'({self.s}, {self.t})'
 
     def __hash__(self) -> int:
-        return hash((self.s, self.t))
+        return hash(tuple(self.nodes))
 
     def __eq__(self, other):
-        return isinstance(other, CausalPath) and self.s == other.s and self.t == other.t
+        return isinstance(other, CausalPath) and self.nodes == other.nodes
 
 
 class TimeStampedLink:
@@ -23,7 +22,7 @@ class TimeStampedLink:
         self.source, self.target, self.timestamp = source, target, timestamp
 
     def as_causal_path(self):
-        return CausalPath(self.source, self.target)
+        return CausalPath([self.source, self.target])
 
     def __str__(self) -> str:
         return f'{self.source} -> {self.target} ({self.timestamp})'
@@ -41,7 +40,6 @@ class TimeStampedLinkWithCount(TimeStampedLink):
 class TimeStampedLinkList:
     def __init__(self, links: List[TimeStampedLink]) -> None:
         self.links = sorted(links, key=lambda x: x.timestamp)
-        self.graph = nx.DiGraph([(link.source, link.target) for link in links])
 
     def __iter__(self):
         return iter(self.links)
@@ -49,30 +47,11 @@ class TimeStampedLinkList:
     def __str__(self) -> str:
         return '\n'.join([link.__str__() for link in self.links])
 
-    def path_length(self, causal_path: CausalPath):
-        try:
-            shortest_path = nx.shortest_path(
-                self.graph, source=causal_path.s, target=causal_path.t)
-            return len(shortest_path)
-        except Exception as e:
-            print(e)
-            return 0
-
     @staticmethod
     def from_edgelist(edge_list: List):
         timestamped_links = [TimeStampedLink(
             e[0], e[1], e[2]) for e in edge_list]
         return TimeStampedLinkList(timestamped_links)
-
-
-def path_length(window, causal_path: CausalPath):
-    try:
-        graph = nx.DiGraph([(link.source, link.target) for link in window])
-        shortest_path = nx.shortest_path(
-            graph, source=causal_path.s, target=causal_path.t)
-        return len(shortest_path)
-    except Exception as e:
-        return float('inf')
 
 
 def paco(data: TimeStampedLinkList, max_time: int, max_steps: int):
@@ -100,7 +79,7 @@ def paco(data: TimeStampedLinkList, max_time: int, max_steps: int):
             else:
                 if link1.target == link.source and link.timestamp > link1.timestamp:
                     for p in link1.c.keys():
-                        if path_length(window, p) <= max_steps:
+                        if len(p.nodes) <= max_steps:
                             p_d = p.extend(link.target)
                             if p_d not in c_i.keys():
                                 c_i[p_d] = link1.c[p]
