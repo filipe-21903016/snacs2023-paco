@@ -1,0 +1,40 @@
+Number of causal paths: Total path count: 		54488.0 
+[Unique / Sub paths / Total]: 	[25232.0 / 271442.0 / 325930.0]
+Nodes:				1899 
+Edges:				20293
+Max. path length:		30
+Avg path length:		1.4587982675084423 
+Paths of length k = 0		0.0 [ 0.0 / 133975.0 / 133975.0 ]
+Paths of length k = 1		47016.0 [ 18902.0 / 32471.0 / 79487.0 ]
+Paths of length k = 2		3672.0 [ 2851.0 / 21327.0 / 24999.0 ]
+Paths of length k = 3		1070.0 [ 964.0 / 16457.0 / 17527.0 ]
+Paths of length k = 4		695.0 [ 623.0 / 13032.0 / 13727.0 ]
+Paths of length k = 5		365.0 [ 329.0 / 10632.0 / 10997.0 ]
+Paths of length k = 6		335.0 [ 313.0 / 8627.0 / 8962.0 ]
+Paths of length k = 7		202.0 [ 188.0 / 7090.0 / 7292.0 ]
+Paths of length k = 8		219.0 [ 207.0 / 5738.0 / 5957.0 ]
+Paths of length k = 9		131.0 [ 124.0 / 4693.0 / 4824.0 ]
+Paths of length k = 10		158.0 [ 155.0 / 3752.0 / 3910.0 ]
+Paths of length k = 11		96.0 [ 88.0 / 3031.0 / 3127.0 ]
+Paths of length k = 12		116.0 [ 109.0 / 2386.0 / 2502.0 ]
+Paths of length k = 13		77.0 [ 71.0 / 1896.0 / 1973.0 ]
+Paths of length k = 14		75.0 [ 71.0 / 1485.0 / 1560.0 ]
+Paths of length k = 15		48.0 [ 44.0 / 1176.0 / 1224.0 ]
+Paths of length k = 16		41.0 [ 41.0 / 922.0 / 963.0 ]
+Paths of length k = 17		35.0 [ 31.0 / 715.0 / 750.0 ]
+Paths of length k = 18		28.0 [ 26.0 / 550.0 / 578.0 ]
+Paths of length k = 19		23.0 [ 19.0 / 418.0 / 441.0 ]
+Paths of length k = 20		21.0 [ 21.0 / 311.0 / 332.0 ]
+Paths of length k = 21		18.0 [ 14.0 / 228.0 / 246.0 ]
+Paths of length k = 22		7.0 [ 7.0 / 174.0 / 181.0 ]
+Paths of length k = 23		11.0 [ 9.0 / 123.0 / 134.0 ]
+Paths of length k = 24		4.0 [ 4.0 / 90.0 / 94.0 ]
+Paths of length k = 25		13.0 [ 11.0 / 52.0 / 65.0 ]
+Paths of length k = 26		3.0 [ 3.0 / 37.0 / 40.0 ]
+Paths of length k = 27		1.0 [ 1.0 / 27.0 / 28.0 ]
+Paths of length k = 28		2.0 [ 2.0 / 17.0 / 19.0 ]
+Paths of length k = 29		1.0 [ 1.0 / 10.0 / 11.0 ]
+Paths of length k = 30		5.0 [ 3.0 / 0.0 / 5.0 ]
+
+Total causal paths count: 122013.0
+Runtime: 113.58132410049438 seconds
