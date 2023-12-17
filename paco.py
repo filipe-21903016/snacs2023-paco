@@ -2,20 +2,22 @@ from typing import List, Dict
 
 
 class CausalPath:
-    def __init__(self, nodes: List[str]) -> None: self.nodes = nodes
+    def __init__(self, nodes: List[str]) -> None:
+        self.nodes = nodes
 
     def extend(self, node: str):
-        return CausalPath([node] + self.nodes)
+        # Adjusted to append the new node to the end of the path
+        extended = CausalPath(self.nodes + [node])
+        return extended 
 
     def __str__(self) -> str:
-        return f'({self.s}, {self.t})'
+        return f'({", ".join(self.nodes)})'
 
     def __hash__(self) -> int:
         return hash(tuple(self.nodes))
 
     def __eq__(self, other):
         return isinstance(other, CausalPath) and self.nodes == other.nodes
-
 
 class TimeStampedLink:
     def __init__(self, source: str, target: str, timestamp: int) -> None:
@@ -32,6 +34,9 @@ class TimeStampedLinkWithCount(TimeStampedLink):
     def __init__(self, source: str, target: str, timestamp: int, c: Dict[CausalPath, int]) -> None:
         super().__init__(source, target, timestamp)
         self.c = c
+
+    def __eq__(self, other):
+        return isinstance(other, TimeStampedLinkWithCount) and self.source == other.source and self.target == other.target and self.timestamp == other.timestamp
 
     def __str__(self) -> str:
         return f'{self.source} -> {self.target} ({self.timestamp})'
@@ -73,18 +78,18 @@ def paco(data: TimeStampedLinkList, max_time: int, max_steps: int):
         c_i: Dict[CausalPath, int] = {}
         c_i[link.as_causal_path()] = 1
 
+        # Update the window and remove old links
+        window = [w for w in window if link.timestamp - w.timestamp <= max_time]
+
         for link1 in window:
-            if link1.timestamp < link.timestamp - max_time:
-                window.remove(link1)
-            else:
-                if link1.target == link.source and link.timestamp > link1.timestamp:
-                    for p in link1.c.keys():
-                        if len(p.nodes) <= max_steps:
-                            p_d = p.extend(link.target)
-                            if p_d not in c_i.keys():
-                                c_i[p_d] = link1.c[p]
-                            else:
-                                c_i[p_d] += link1.c[p]
+            if link1.target == link.source and link.timestamp > link1.timestamp:
+                for p in link1.c.keys():
+                    if len(p.nodes) < max_steps:
+                        p_d = p.extend(link.target)
+                        if p_d not in c_i.keys():
+                            c_i[p_d] = link1.c[p]
+                        else:
+                            c_i[p_d] += link1.c[p]
 
         for p in c_i.keys():
             if p not in C.keys():
