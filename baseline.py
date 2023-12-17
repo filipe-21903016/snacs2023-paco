@@ -25,12 +25,6 @@ def load_edgelist():
 
     return [(row['source'], row['target'], date_to_timestamp(row['timestamp'])) for _, row in data.iterrows()]
 
-edge_list = load_edgelist()
-# Create a temporal network
-t = pp.TemporalNetwork()
-for edge in tqdm(edge_list):
-  s, d, ts = edge
-  t.add_edge(s, d, ts)
 
 def path_count(paths, k):
   count = 0
@@ -87,6 +81,13 @@ def get_total_causal_paths(temporal_network, delta, K):
     
     return count, runtime
 
+def create_temporal_network(edge_list):
+    # Create a temporal network
+    t = pp.TemporalNetwork()
+    for edge in tqdm(edge_list):
+        s, d, ts = edge
+        t.add_edge(s, d, ts)
+    return t
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
@@ -102,6 +103,9 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     delta = args.d * (60 if args.m is True or args.h is True else 1) * (60 if args.h is True else 1) 
+
+    edge_list = load_edgelist()
+    t = create_temporal_network(edge_list)
 
     # Create the 'logs' directory if it doesn't exist
     if not os.path.exists(LOGS_DIR):

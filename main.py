@@ -37,17 +37,6 @@ if __name__ == '__main__':
     print('Pre-processing data...')
     s = time.time()
     edge_list = load_edgelist()
-    # edge_list = [("1", "2", 1), 
-    #              ("2", "3", 2), 
-    #              ("2", "3", 3),
-    #              ("3", "1", 4),
-    #              ("1", "4", 5)]
-    # edge_list = [('a', 'b', 1)
-    #     ,('b', 'a', 3)
-    #     ,('b', 'c', 3)
-    #     ,('d', 'c', 4)
-    #     ,('c', 'd', 5)
-    #     ,('c', 'b', 6)]
     data = TimeStampedLinkList.from_edgelist(edge_list)
 
     e = time.time()
@@ -60,6 +49,3 @@ if __name__ == '__main__':
     runtime = e - s
 
     print(f'PaCo found {sum(C.values())} causal paths. ({round(runtime, 2)}s)')
-    # for k in C.keys():
-    #     # if len(k.nodes) > 2:
-    #     print(k)
