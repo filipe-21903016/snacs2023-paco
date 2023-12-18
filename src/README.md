@@ -26,13 +26,6 @@ python main.py -d 10 --minute -K 3
 
 This example sets the maximum time difference to 10 minutes and the maximum path length to 3.
 
-### Output
-
-The script will output the total number of causal paths found by the PaCo algorithm and the runtime.
-
-For further assistance, please contact [your-email@example.com].
-
-**Note:** This README assumes that you have Python installed on your system. README.md
 
 ## Running the Baseline Script
 
