@@ -1,0 +1,13 @@
+Number of causal paths: Total path count: 		35030.0 
+[Unique / Sub paths / Total]: 	[35030.0 / 71753.0 / 106783.0]
+Nodes:				5881 
+Edges:				35592
+Max. path length:		3
+Avg path length:		1.0161004852983158 
+Paths of length k = 0		0.0 [ 0.0 / 70624.0 / 70624.0 ]
+Paths of length k = 1		34467.0 [ 34467.0 / 1127.0 / 35594.0 ]
+Paths of length k = 2		562.0 [ 562.0 / 2.0 / 564.0 ]
+Paths of length k = 3		1.0 [ 1.0 / 0.0 / 1.0 ]
+
+Total causal paths count: 36159.0
+Runtime: 3.523164987564087 seconds
