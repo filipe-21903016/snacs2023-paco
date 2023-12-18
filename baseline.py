@@ -5,11 +5,9 @@ from tqdm import tqdm
 from time import time
 import argparse
 import os
-import pickle
 
 LOGS_DIR = 'logs'
 DATASET_PATH = "./reddit_hyperlink_network.tsv"
-
 
 # Generate a timestamp for the log file
 timestamp = datetime.now().strftime("%Y%m%d%H%M")
@@ -32,24 +30,7 @@ def path_count(paths, k):
       count += sum([v.sum() for v in paths.paths[k].values()])
   return count
 
-def create_models_backup_directory():
-    # Create a 'models' directory if it doesn't exist
-    models_directory = 'models'
-    if not os.path.exists(models_directory):
-        os.makedirs(models_directory)
-    return models_directory
-
-def create_run_models_directory(delta, K):
-    models_dir = create_models_backup_directory()
-    # Create a folder to store pickle files
-    run_dir_name = f"{models_dir}/baseline_{timestamp}_delta{delta}_K{K}"
-    if not os.path.exists(run_dir_name):
-        os.makedirs(run_dir_name)
-    return run_dir_name
-
 def get_total_causal_paths(temporal_network, delta, K):
-    run_dir = create_run_models_directory(delta, K)
-
     start = time()
     # Calculate the number of causal paths
     paths = pp.path_extraction.temporal_paths.paths_from_temporal_network_dag(temporal_network, delta=delta)
@@ -68,16 +49,6 @@ def get_total_causal_paths(temporal_network, delta, K):
     log_file_name = f"{LOGS_DIR}/baseline_{timestamp}_delta{delta}_K{K}.log"
     with open(log_file_name, 'w') as log_file:
         log_file.write(output)
-    
-    # # Save the temporal network as a pickle file
-    # temporal_network_file = f"{run_dir}/temporal_network.pkl"
-    # with open(temporal_network_file, 'wb') as temporal_network_pickle:
-    #     pickle.dump(temporal_network, temporal_network_pickle)
-
-    # Save the paths as a pickle file
-    paths_file = f"{run_dir}/paths.pkl"
-    with open(paths_file, 'wb') as paths_pickle:
-        pickle.dump(paths, paths_pickle)
     
     return count, runtime
 
